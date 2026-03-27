@@ -1,0 +1,7 @@
+# No external dependencies required for the core pipeline.
+# All scripts use Python standard library only (urllib, json, csv, zipfile).
+#
+# Optional (uncomment if you want enhanced functionality):
+# requests>=2.31.0        # Cleaner HTTP client (currently using urllib)
+# anthropic>=0.40.0       # Official Anthropic SDK (currently using raw HTTP)
+# pandas>=2.0.0           # For data analysis (currently using csv module)
