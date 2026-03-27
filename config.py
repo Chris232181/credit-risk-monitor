@@ -47,7 +47,7 @@ KNOWN_BDCS = {
 }
 
 # SEC EDGAR API configuration
-SEC_USER_AGENT = "PrivateCreditMonitor research@example.com"  # CHANGE THIS to your email
+SEC_USER_AGENT = "chris.stracke1@gmail.com"  # CHANGE THIS to your email
 SEC_BASE_URL = "https://data.sec.gov"
 SEC_EDGAR_SEARCH = "https://efts.sec.gov/LATEST"
 SEC_BDC_DATA_URL = "https://www.sec.gov/files/structureddata/data/business-development-company-bdc-data-sets"
