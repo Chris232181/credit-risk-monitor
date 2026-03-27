@@ -1,0 +1,67 @@
+# .github/workflows/update-data.yml
+# Manual data pipeline for Private Credit Fund Risk Monitor
+#
+# Trigger from the Actions tab → "Update BDC Risk Data" → "Run workflow"
+#
+# Required secrets (set in GitHub repo Settings → Secrets):
+#   - FMP_API_KEY: Financial Modeling Prep free API key (optional but recommended)
+#   - ANTHROPIC_API_KEY: Anthropic API key for text extraction (optional)
+#
+# The workflow will still produce useful output without these keys,
+# but market prices and unstructured metrics will be missing.
+
+name: Update BDC Risk Data
+
+on:
+  workflow_dispatch:  # Manual trigger only
+
+permissions:
+  contents: write
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Step 1 — Fetch SEC BDC Data & EDGAR XBRL
+        run: python scripts/fetch_bdc_data.py
+        env:
+          PYTHONUNBUFFERED: "1"
+
+      - name: Step 2 — Fetch Market Data (FMP)
+        run: python scripts/fetch_market_data.py
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+          PYTHONUNBUFFERED: "1"
+
+      - name: Step 3 — Extract Filing Text (Claude API)
+        run: python scripts/extract_filing_text.py
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PYTHONUNBUFFERED: "1"
+
+      - name: Step 4 — Score Funds
+        run: python scripts/score_funds.py
+        env:
+          PYTHONUNBUFFERED: "1"
+
+      - name: Commit updated data
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data/
+          git diff --staged --quiet || git commit -m "chore: update BDC risk data $(date +%Y-%m-%d)"
+          git push
