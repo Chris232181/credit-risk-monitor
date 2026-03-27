@@ -1,4 +1,0 @@
-{
-  "_comment": "Manual overrides for metrics not available in SEC structured data. Governance scores (0-100, higher = riskier) and analyst commentary go here. Add entries as ticker: {fields}.",
-  "_governance_guide": "0-25: Top-tier sponsor with active support. 25-50: Strong sponsor, explicit commitment. 50-75: Mid-tier or limited support. 75-100: Small sponsor, fee-priority, conflicted governance."
-}
