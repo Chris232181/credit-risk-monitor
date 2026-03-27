@@ -1,5 +1,5 @@
 {
-  "generated": "2026-03-27T04:26:35.683867",
+  "generated": "2026-03-27T04:36:29.486161",
   "source": "SEC EDGAR BDC Data Sets + XBRL Company Facts API",
   "fund_count": 70,
   "funds": [
@@ -2484,6 +2484,6 @@
       "last_updated": "2026-03-27"
     }
   ],
-  "market_data_updated": "2026-03-27T04:27:01.667299",
-  "text_extraction_updated": "2026-03-27T04:27:21.323810"
+  "market_data_updated": "2026-03-27T04:36:52.488645",
+  "text_extraction_updated": "2026-03-27T04:37:16.432697"
 }
